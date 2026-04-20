@@ -43,7 +43,7 @@ a { color: inherit; text-decoration: none; }
   --bg-3:     #1B1823;
   --ink:      #F2ECDC;
   --ink-dim:  #CCC6B4;
-  --ink-mute: #9A9487;
+  --ink-mute: #B5AF9F;
   --ink-faint:#5A564C;
   --accent:   #D4B26A;
   --accent-dim:#9A8449;
@@ -193,12 +193,12 @@ body::after {
 }
 
 .lede {
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-family: var(--font-sans);
+  font-style: normal;
   font-weight: 400;
-  font-size: clamp(1.05rem, 3.5vw, 1.2rem);
+  font-size: clamp(1.05rem, 3.5vw, 1.15rem);
   line-height: 1.55;
-  color: var(--ink-dim);
+  color: var(--ink);
 }
 
 .prose {
@@ -447,7 +447,7 @@ body::after {
   font-family: var(--font-serif);
   font-size: 1rem;
   line-height: 1.65;
-  color: var(--ink-dim);
+  color: var(--ink);
 }
 .warning p + p { margin-top: 12px; }
 .warning strong {
@@ -531,9 +531,10 @@ body::after {
   gap: 10px;
 }
 .thematic-tag {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 0.95rem;
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.9375rem;
   padding: 8px 14px;
   background: var(--bg-2);
   border: 1px solid var(--border);
@@ -597,23 +598,24 @@ body::after {
 }
 .char-name em {
   display: block;
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-  font-size: 0.55em;
-  color: var(--ink-dim);
-  margin-top: 8px;
-  letter-spacing: 0;
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.8125rem;
+  color: var(--accent);
+  margin-top: 10px;
+  letter-spacing: 0.04em;
+  text-transform: none;
 }
 
 .char-tagline {
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-family: var(--font-sans);
+  font-style: normal;
   font-weight: 400;
   font-size: 0.95rem;
   line-height: 1.55;
-  color: var(--ink-dim);
-  margin-top: 12px;
+  color: var(--ink);
+  margin-top: 14px;
 }
 
 .char-meta {
@@ -702,13 +704,14 @@ body::after {
 }
 .modal-name em {
   display: block;
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-  font-size: 0.45em;
-  color: var(--ink-dim);
-  margin-top: 10px;
-  letter-spacing: 0;
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  color: var(--accent);
+  margin-top: 14px;
+  letter-spacing: 0.04em;
+  text-transform: none;
 }
 .modal-body {
   font-family: var(--font-serif);
@@ -735,10 +738,10 @@ body::after {
   margin-bottom: 8px;
 }
 .modal-props-text {
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-family: var(--font-sans);
+  font-style: normal;
   font-weight: 400;
-  color: var(--ink-dim);
+  color: var(--ink);
   font-size: 0.95rem;
   line-height: 1.55;
 }
@@ -810,12 +813,12 @@ body::after {
   padding: 20px;
   background: var(--bg-2);
   border: 1px solid var(--border);
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-family: var(--font-sans);
+  font-style: normal;
   font-weight: 400;
   font-size: 0.95rem;
   line-height: 1.6;
-  color: var(--ink-dim);
+  color: var(--ink);
 }
 
 .troupe-credit {
@@ -833,11 +836,11 @@ body::after {
   margin-bottom: 12px;
 }
 .troupe-credit p {
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-family: var(--font-sans);
+  font-style: normal;
   font-weight: 400;
-  color: var(--ink-dim);
-  font-size: 0.95rem;
+  color: var(--ink);
+  font-size: 1rem;
   line-height: 1.6;
 }
 
@@ -859,12 +862,12 @@ body::after {
   color: var(--ink);
 }
 .info-time {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
+  font-family: var(--font-sans);
+  font-weight: 500;
   color: var(--accent);
-  font-size: 1.2rem;
-  margin-top: 12px;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+  margin-top: 14px;
   display: inline-flex;
   align-items: center;
   gap: 12px;
@@ -907,6 +910,25 @@ body::after {
   background: var(--accent);
   color: var(--bg);
 }
+
+.info-sub {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.5;
+  color: var(--ink-dim);
+  letter-spacing: 0.01em;
+}
+
+.info-val a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+.info-val a:hover { text-decoration: underline; }
 
 .legal {
   margin-top: 48px;
@@ -1028,8 +1050,8 @@ body::after {
   }
   .brand-logo em {
     display: inline-block;
-    font-family: var(--font-serif);
-    font-style: italic;
+    font-family: var(--font-sans);
+    font-style: normal;
     font-weight: 400;
     font-size: 12px;
     letter-spacing: 0.08em;
@@ -1348,8 +1370,8 @@ body::after {
         <p class="info-key">Lieu</p>
         <p class="info-val">
           <strong>Théâtre du LCS</strong><br>
-          Lycée Condorcet de Sydney<br>
-          <span style="color:var(--ink-dim);font-style:italic;font-size:0.9rem">Entrée par Moverly Road</span>
+          Lycée Condorcet de Sydney
+          <span class="info-sub">Entrée par Moverly Road</span>
         </p>
       </div>
 
@@ -1363,18 +1385,16 @@ body::after {
       <div class="info-block">
         <p class="info-key">Durée</p>
         <p class="info-val">
-          Environ 1h10<br>
-          <span style="color:var(--ink-dim);font-style:italic;font-size:0.9rem">sans entracte</span>
+          Environ 1h10
+          <span class="info-sub">sans entracte</span>
         </p>
       </div>
 
       <div class="info-block">
         <p class="info-key">À partir de</p>
         <p class="info-val">
-          10 ans<br>
-          <span style="color:var(--ink-dim);font-style:italic;font-size:0.9rem">
-            Voir l'avertissement dans l'onglet L'histoire.
-          </span>
+          10 ans
+          <span class="info-sub">Voir l'avertissement dans l'onglet L'histoire.</span>
         </p>
       </div>
 
@@ -1389,7 +1409,7 @@ body::after {
         <p class="info-key">Contact</p>
         <p class="info-val">
           Coordination extrascolaire LCS<br>
-          <a href="mailto:aes@condorcet.com.au" style="color:var(--accent);text-decoration:none">aes@condorcet.com.au</a>
+          <a href="mailto:aes@condorcet.com.au">aes@condorcet.com.au</a>
         </p>
       </div>
     </div>
