@@ -1,0 +1,1772 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0B0A0F">
+
+<!-- Blocage de l'indexation : site accessible uniquement par lien direct -->
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="referrer" content="no-referrer">
+
+<meta name="description" content="Cendrillon, de Joël Pommerat. Par la troupe du Lycée Condorcet de Sydney. Vendredi 15 mai 2026, 19h. Entrée libre.">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cendrillon · Troupe du LCS">
+<meta property="og:description" content="Une histoire qu'on croyait connaître. Vendredi 15 mai 2026, 19h — Théâtre du LCS. Entrée libre.">
+
+<title>Cendrillon · Troupe du LCS</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Geist:wght@300..700&display=swap" rel="stylesheet">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0A0F'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%23C9A961' stroke-width='1.5'/%3E%3Cline x1='16' y1='16' x2='16' y2='8.5' stroke='%23EEE6D3' stroke-width='1.2' stroke-linecap='round'/%3E%3Cline x1='16' y1='16' x2='21' y2='16' stroke='%23EEE6D3' stroke-width='1' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='1' fill='%23C9A961'/%3E%3C/svg%3E">
+
+<style>
+/* ============================================================
+   RESET + TOKENS
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body { min-height: 100dvh; }
+img, svg { display: block; max-width: 100%; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+:root {
+  --bg:       #0B0A0F;
+  --bg-2:     #14121A;
+  --bg-3:     #1B1823;
+  --ink:      #EEE6D3;
+  --ink-dim:  #A39C8C;
+  --ink-mute: #6A6458;
+  --ink-faint:#3E3B35;
+  --accent:   #C9A961;
+  --accent-dim:#8A7443;
+  --warn:     #7A1F2E;
+  --warn-dim: #3F1117;
+  --border:   rgba(238, 230, 211, 0.10);
+  --border-strong: rgba(238, 230, 211, 0.22);
+
+  --font-display: 'Italiana', 'Didot', serif;
+  --font-serif:   'Fraunces', Georgia, serif;
+  --font-sans:    'Geist', system-ui, -apple-system, sans-serif;
+
+  --nav-h: 68px;
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-t: env(safe-area-inset-top, 0px);
+
+  --max-w: 1180px;
+  --content-w: 640px;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--bg);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+  letter-spacing: 0.005em;
+}
+
+/* Grain overlay (ashes) — fixed over whole site */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.08;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+}
+
+/* Vignette for depth */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 99;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.5) 100%);
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.app {
+  min-height: 100dvh;
+  padding-bottom: calc(var(--nav-h) + var(--safe-b));
+  position: relative;
+  z-index: 1;
+}
+
+.panel {
+  display: none;
+  min-height: calc(100dvh - var(--nav-h) - var(--safe-b));
+  animation: panel-in 0.55s var(--ease) both;
+}
+.panel.active { display: block; }
+
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.wrap {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.wrap-narrow {
+  max-width: var(--content-w);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 0.92;
+}
+
+.serif       { font-family: var(--font-serif); }
+.serif-it    { font-family: var(--font-serif); font-style: italic; }
+
+.overline {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.eyebrow::before {
+  content: "";
+  width: 18px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.section-num {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.4em;
+  color: var(--ink-mute);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 9vw, 4.6rem);
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  margin-top: 8px;
+}
+
+.lede {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1.05rem, 3.5vw, 1.2rem);
+  line-height: 1.55;
+  color: var(--ink-dim);
+}
+
+.prose {
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--ink);
+  font-weight: 350;
+}
+.prose p + p { margin-top: 1.2em; }
+.prose em { font-style: italic; color: var(--ink); }
+
+.dropcap::first-letter {
+  font-family: var(--font-display);
+  font-size: 4em;
+  float: left;
+  line-height: 0.82;
+  padding: 0.08em 0.12em 0 0;
+  color: var(--accent);
+}
+
+/* ============================================================
+   HERO (ACCUEIL)
+   ============================================================ */
+.hero {
+  position: relative;
+  min-height: calc(100dvh - var(--nav-h) - var(--safe-b));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px 24px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,169,97,0.06), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(122,31,46,0.08), transparent 70%);
+}
+
+.hero-eyebrow {
+  opacity: 0;
+  animation: fade-up 0.9s var(--ease) 0.2s forwards;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 19vw, 10rem);
+  line-height: 0.88;
+  letter-spacing: 0.04em;
+  margin: 18px 0 12px;
+  color: var(--ink);
+  opacity: 0;
+  animation: fade-up 1.1s var(--ease) 0.4s forwards;
+  text-shadow: 0 2px 30px rgba(201,169,97,0.08);
+}
+
+.hero-author {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1rem, 3.8vw, 1.25rem);
+  color: var(--ink-dim);
+  opacity: 0;
+  animation: fade-up 0.9s var(--ease) 0.7s forwards;
+}
+
+.hero-watch {
+  display: flex;
+  justify-content: center;
+  margin: 32px 0 28px;
+  opacity: 0;
+  animation: fade-up 0.9s var(--ease) 0.95s forwards;
+}
+
+.hero-quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(0.95rem, 3.4vw, 1.1rem);
+  line-height: 1.55;
+  color: var(--ink-dim);
+  max-width: 36ch;
+  margin: 0 auto 40px;
+  opacity: 0;
+  animation: fade-up 0.9s var(--ease) 1.15s forwards;
+  position: relative;
+}
+.hero-quote::before,
+.hero-quote::after {
+  content: "—";
+  display: inline-block;
+  color: var(--accent);
+  margin: 0 8px;
+}
+
+.hero-meta {
+  opacity: 0;
+  animation: fade-up 0.9s var(--ease) 1.35s forwards;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 32px;
+}
+
+.hero-date {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 5.5vw, 2.2rem);
+  letter-spacing: 0.06em;
+  color: var(--ink);
+}
+
+.hero-where {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.hero-entree {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding: 6px 14px;
+  border: 1px solid var(--border-strong);
+  margin-top: 6px;
+}
+
+.hero-cta {
+  margin-top: 28px;
+  opacity: 0;
+  animation: fade-up 0.9s var(--ease) 1.55s forwards;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 26px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink);
+  border: 1px solid var(--border-strong);
+  background: rgba(238, 230, 211, 0.02);
+  transition: border-color 0.3s var(--ease), background 0.3s var(--ease), color 0.3s var(--ease);
+}
+.btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(201,169,97,0.04); }
+.btn-arrow { transition: transform 0.3s var(--ease); }
+.btn:hover .btn-arrow { transform: translateX(4px); }
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   WATCH SVG
+   ============================================================ */
+.watch { width: 64px; height: 64px; }
+.watch-face { stroke: var(--accent); }
+.watch-mark { stroke: var(--ink-dim); }
+.watch-hand-h { stroke: var(--ink); }
+.watch-hand-m { stroke: var(--ink); }
+.watch-hand-s {
+  stroke: var(--warn);
+  transform-origin: 32px 32px;
+  animation: tick 60s steps(60, end) infinite;
+}
+.watch-pivot { fill: var(--accent); }
+
+@keyframes tick {
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================================
+   SECTION HEADER (used across tabs)
+   ============================================================ */
+.sec-head {
+  padding: 56px 0 36px;
+  text-align: left;
+}
+.sec-head .section-title { max-width: 14ch; }
+.sec-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0 0;
+  color: var(--ink-mute);
+}
+.sec-divider-line { flex: 1; height: 1px; background: var(--border); }
+
+/* ============================================================
+   HISTOIRE
+   ============================================================ */
+.warning {
+  margin: 8px 0 40px;
+  padding: 24px 22px;
+  border: 1px solid var(--warn);
+  background:
+    linear-gradient(180deg, rgba(122,31,46,0.14), rgba(122,31,46,0.04)),
+    var(--bg-2);
+  position: relative;
+}
+.warning::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 3px;
+  background: var(--warn);
+}
+.warning-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+.warning-label svg { flex-shrink: 0; }
+.warning h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 5.5vw, 1.9rem);
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 14px;
+  color: var(--ink);
+}
+.warning p {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--ink-dim);
+}
+.warning p + p { margin-top: 12px; }
+.warning strong {
+  font-weight: 500;
+  color: var(--ink);
+}
+.warning-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(122,31,46,0.3);
+}
+.warning-chip {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  border: 1px solid var(--border-strong);
+  color: var(--ink-dim);
+}
+
+.pullquote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1.25rem, 5vw, 1.7rem);
+  line-height: 1.35;
+  color: var(--ink);
+  padding: 36px 0;
+  margin: 36px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+  position: relative;
+}
+.pullquote::before {
+  content: "«";
+  font-family: var(--font-display);
+  color: var(--accent);
+  font-size: 2em;
+  line-height: 0;
+  position: absolute;
+  top: 36px;
+  left: 50%;
+  transform: translate(-50%, -0.5em);
+  background: var(--bg);
+  padding: 0 16px;
+}
+.pullquote cite {
+  display: block;
+  margin-top: 18px;
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.thematic {
+  margin-top: 48px;
+  padding-top: 36px;
+  border-top: 1px solid var(--border);
+}
+.thematic-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 20px;
+}
+.thematic-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.thematic-tag {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  padding: 8px 14px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  color: var(--ink);
+  transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+.thematic-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ============================================================
+   PERSONNAGES
+   ============================================================ */
+.chars {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.char-card {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 22px 20px;
+  background: linear-gradient(180deg, var(--bg-2), var(--bg));
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.4s var(--ease), transform 0.4s var(--ease);
+}
+.char-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.5s var(--ease);
+}
+.char-card:hover,
+.char-card:focus-visible {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+.char-card:hover::before,
+.char-card:focus-visible::before { width: 100%; }
+
+.char-num {
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--ink-mute);
+}
+
+.char-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 6vw, 2.1rem);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  margin-top: 4px;
+  color: var(--ink);
+}
+.char-name em {
+  display: block;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 0.55em;
+  color: var(--ink-dim);
+  margin-top: 8px;
+  letter-spacing: 0;
+}
+
+.char-tagline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--ink-dim);
+  margin-top: 12px;
+}
+
+.char-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.char-actor { color: var(--ink-dim); }
+.char-more {
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 4, 8, 0.82);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease);
+}
+.modal-backdrop.open { opacity: 1; pointer-events: auto; }
+
+.modal {
+  position: fixed;
+  inset: auto 0 0 0;
+  max-height: 88dvh;
+  background: var(--bg);
+  border-top: 1px solid var(--accent);
+  z-index: 201;
+  transform: translateY(100%);
+  transition: transform 0.45s var(--ease);
+  overflow-y: auto;
+  padding-bottom: max(24px, var(--safe-b));
+}
+.modal.open { transform: translateY(0); }
+
+.modal-inner {
+  max-width: var(--content-w);
+  margin: 0 auto;
+  padding: 28px 24px 40px;
+}
+.modal-close {
+  position: sticky;
+  top: 12px;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--bg-2);
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+  color: var(--ink);
+  transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
+  z-index: 2;
+}
+.modal-close:hover { border-color: var(--accent); color: var(--accent); }
+.modal-num {
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--accent);
+  margin-top: 6px;
+}
+.modal-name {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 8vw, 3rem);
+  line-height: 0.95;
+  margin-top: 8px;
+}
+.modal-name em {
+  display: block;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 0.45em;
+  color: var(--ink-dim);
+  margin-top: 10px;
+  letter-spacing: 0;
+}
+.modal-body {
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  font-weight: 350;
+  color: var(--ink);
+  margin-top: 22px;
+}
+.modal-body p + p { margin-top: 1em; }
+
+.modal-props {
+  margin-top: 24px;
+  padding: 16px 18px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+}
+.modal-props-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.modal-props-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--ink-dim);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.modal-actor {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.modal-actor-name {
+  color: var(--ink);
+  display: block;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  margin-top: 6px;
+  text-transform: none;
+  font-family: var(--font-serif);
+  font-weight: 400;
+}
+
+/* ============================================================
+   TROUPE
+   ============================================================ */
+.troupe-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin-top: 8px;
+  border-top: 1px solid var(--border);
+}
+.troupe-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: baseline;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s var(--ease);
+}
+.troupe-row:hover { background: rgba(201,169,97,0.02); }
+.troupe-name {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--ink);
+}
+.troupe-role {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  text-align: right;
+}
+.troupe-role em {
+  display: block;
+  color: var(--accent);
+  font-style: normal;
+  margin-top: 2px;
+}
+
+.troupe-note {
+  margin-top: 36px;
+  padding: 20px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--ink-dim);
+}
+
+.troupe-credit {
+  margin-top: 40px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+}
+.troupe-credit h3 {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 12px;
+}
+.troupe-credit p {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--ink-dim);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   INFOS
+   ============================================================ */
+.info-hero {
+  padding: 20px 0 36px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 36px;
+  text-align: center;
+}
+.info-hero .overline { margin-bottom: 18px; }
+.info-date {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 9vw, 4rem);
+  line-height: 0.95;
+  letter-spacing: 0.03em;
+  color: var(--ink);
+}
+.info-time {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--accent);
+  font-size: 1.2rem;
+  margin-top: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.info-time .watch { width: 28px; height: 28px; }
+
+.info-block {
+  padding: 22px 0;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+.info-block:last-child { border-bottom: none; }
+.info-key {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.info-val {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.info-val strong { font-weight: 500; color: var(--accent); }
+
+.entree-libre {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  padding: 10px 18px;
+  margin-top: 8px;
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.legal {
+  margin-top: 48px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--ink-mute);
+  letter-spacing: 0.02em;
+}
+.legal p + p { margin-top: 8px; }
+
+/* ============================================================
+   BOTTOM NAV (mobile) / TOP NAV (desktop)
+   ============================================================ */
+.nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(var(--nav-h) + var(--safe-b));
+  padding-bottom: var(--safe-b);
+  background: rgba(11, 10, 15, 0.92);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border-top: 1px solid var(--border-strong);
+  z-index: 150;
+  display: flex;
+}
+
+.nav-list {
+  display: flex;
+  width: 100%;
+  list-style: none;
+}
+.nav-item {
+  flex: 1;
+  display: flex;
+}
+.nav-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 4px 10px;
+  color: var(--ink-mute);
+  position: relative;
+  transition: color 0.3s var(--ease);
+}
+.nav-btn svg {
+  width: 22px;
+  height: 22px;
+  stroke-width: 1.4;
+  transition: stroke 0.3s var(--ease);
+}
+.nav-btn span {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.nav-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 36px;
+  height: 2px;
+  background: var(--accent);
+  transition: transform 0.35s var(--ease);
+  transform-origin: center;
+}
+.nav-btn.active {
+  color: var(--ink);
+}
+.nav-btn.active svg { stroke: var(--accent); }
+.nav-btn.active::after { transform: translateX(-50%) scaleX(1); }
+.nav-btn:hover { color: var(--ink); }
+
+/* ============================================================
+   DESKTOP
+   ============================================================ */
+@media (min-width: 960px) {
+  .app {
+    padding-bottom: 0;
+    padding-top: calc(var(--nav-h) + 8px);
+  }
+  .nav {
+    top: 0;
+    bottom: auto;
+    height: var(--nav-h);
+    padding-bottom: 0;
+    border-top: none;
+    border-bottom: 1px solid var(--border-strong);
+  }
+  .nav-list {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 24px;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+  .nav-item { flex: 0 0 auto; }
+  .nav-item.brand {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+  .brand-logo {
+    font-family: var(--font-display);
+    font-size: 22px;
+    letter-spacing: 0.12em;
+    color: var(--ink);
+  }
+  .brand-logo em {
+    display: inline-block;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--ink-mute);
+    margin-left: 8px;
+  }
+  .nav-btn {
+    flex-direction: row;
+    padding: 0 16px;
+    gap: 8px;
+    min-height: var(--nav-h);
+  }
+  .nav-btn svg { width: 16px; height: 16px; }
+  .nav-btn span {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+  }
+  .nav-btn::after {
+    top: auto;
+    bottom: 0;
+  }
+
+  .hero { min-height: calc(100dvh - var(--nav-h)); padding: 60px 24px; }
+  .hero-title { font-size: clamp(6rem, 14vw, 12rem); }
+  .panel { min-height: calc(100dvh - var(--nav-h)); }
+
+  .chars {
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  .modal {
+    inset: 50% auto auto 50%;
+    transform: translate(-50%, -48%) scale(0.98);
+    width: min(92vw, 620px);
+    max-height: 80vh;
+    border: 1px solid var(--accent);
+    border-radius: 2px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+  }
+  .modal.open {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .info-blocks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 48px;
+  }
+  .info-block { border-bottom: 1px solid var(--border); }
+  .info-block:last-child { border-bottom: 1px solid var(--border); }
+}
+
+/* Hide brand on mobile */
+@media (max-width: 959px) {
+  .nav-item.brand { display: none; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .watch-hand-s { animation: none; }
+}
+</style>
+</head>
+<body>
+
+<main class="app" id="app">
+
+<!-- ============================================================
+     ACCUEIL
+     ============================================================ -->
+<section class="panel active" id="accueil" role="tabpanel" aria-labelledby="tab-accueil">
+  <div class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <p class="hero-eyebrow overline">Troupe du Lycée Condorcet · Sydney</p>
+    <h1 class="hero-title display">Cendrillon</h1>
+    <p class="hero-author">de Joël Pommerat</p>
+
+    <div class="hero-watch" aria-hidden="true">
+      <svg class="watch" viewBox="0 0 64 64" fill="none">
+        <circle class="watch-face" cx="32" cy="32" r="26" stroke-width="1.2"/>
+        <circle class="watch-face" cx="32" cy="32" r="23" stroke-width="0.5" opacity="0.4"/>
+        <g class="watch-mark" stroke-width="1.2" stroke-linecap="round">
+          <line x1="32" y1="8" x2="32" y2="12"/>
+          <line x1="32" y1="52" x2="32" y2="56"/>
+          <line x1="8" y1="32" x2="12" y2="32"/>
+          <line x1="52" y1="32" x2="56" y2="32"/>
+        </g>
+        <line class="watch-hand-h" x1="32" y1="32" x2="32" y2="20" stroke-width="1.6" stroke-linecap="round"/>
+        <line class="watch-hand-m" x1="32" y1="32" x2="44" y2="32" stroke-width="1.2" stroke-linecap="round"/>
+        <line class="watch-hand-s" x1="32" y1="32" x2="32" y2="14" stroke-width="0.8" stroke-linecap="round"/>
+        <circle class="watch-pivot" cx="32" cy="32" r="1.8"/>
+      </svg>
+    </div>
+
+    <p class="hero-quote">
+      Il était une fois une très jeune fille dont la maman allait mourir.
+    </p>
+
+    <div class="hero-meta">
+      <p class="hero-date">Vendredi 15 mai 2026</p>
+      <p class="hero-where">Théâtre du LCS · 19h</p>
+      <p class="hero-entree">Entrée libre</p>
+
+      <div class="hero-cta">
+        <button class="btn" data-goto="histoire" type="button">
+          Découvrir la pièce
+          <svg class="btn-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4">
+            <path d="M2 7h10M8 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     L'HISTOIRE
+     ============================================================ -->
+<section class="panel" id="histoire" role="tabpanel" aria-labelledby="tab-histoire">
+  <div class="wrap-narrow">
+    <div class="sec-head">
+      <p class="section-num">I · AVANT LA REPRÉSENTATION</p>
+      <h2 class="section-title display">L'histoire</h2>
+      <div class="sec-divider"><span class="sec-divider-line"></span></div>
+    </div>
+
+    <div class="warning" role="note">
+      <div class="warning-label">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4">
+          <circle cx="7" cy="7" r="6"/>
+          <line x1="7" y1="4" x2="7" y2="8" stroke-linecap="round"/>
+          <circle cx="7" cy="10.5" r="0.5" fill="currentColor" stroke="none"/>
+        </svg>
+        À lire avant de venir
+      </div>
+      <h3>Ce n'est pas le conte que vous croyez.</h3>
+      <p>
+        La <em>Cendrillon</em> de Joël Pommerat n'est ni celle de Perrault,
+        ni celle de Disney. C'est une version <strong>poétique, drôle et grave</strong>
+        qui parle de la <strong>mort d'une mère</strong>, du <strong>deuil d'une enfant</strong>,
+        des <strong>mensonges que les adultes racontent aux enfants</strong>,
+        et de la façon dont on apprend à vivre après une perte.
+      </p>
+      <p>
+        Le spectacle est <strong>recommandé à partir de 10 ans</strong>.
+        Il contient des passages émotionnellement forts, mais aussi beaucoup d'humour.
+        Durée approximative : <strong>1h10</strong>, sans entracte.
+      </p>
+      <p>
+        Nous vous invitons à lire le synopsis ci-dessous, éventuellement avec vos enfants,
+        avant la représentation.
+      </p>
+      <div class="warning-chips">
+        <span class="warning-chip">Deuil</span>
+        <span class="warning-chip">Mémoire</span>
+        <span class="warning-chip">Mensonge</span>
+        <span class="warning-chip">Humour noir</span>
+      </div>
+    </div>
+
+    <div class="prose dropcap">
+      <p>
+        Une très jeune fille — que tout le monde finira par appeler Cendrillon —
+        perd sa mère. Sur son lit de mort, la mère lui murmure quelques mots
+        que la petite fille <em>comprend de travers</em>. Persuadée que si elle
+        cesse un seul instant de penser à sa mère, celle-ci mourra pour de bon,
+        elle règle sa montre pour qu'elle sonne toutes les cinq minutes.
+        Elle se condamne à ne plus jamais oublier.
+      </p>
+      <p>
+        Son père, incapable de faire face, se remarie. La nouvelle femme
+        est obsédée par sa jeunesse perdue. Ses deux enfants rivalisent
+        d'arrogance. Tous trois s'installent dans la maison et relèguent
+        la jeune fille à la cave, parmi les cendres.
+      </p>
+      <p>
+        Au palais royal, le très jeune prince vit lui aussi dans un mensonge :
+        son père lui a raconté que sa mère était partie en voyage et qu'elle
+        allait revenir. Il l'attend depuis dix ans. Lorsque le roi organise
+        une fête et qu'une fée — cabossée, épuisée, à court de pouvoirs —
+        envoie Cendrillon au bal, les deux enfants se rencontrent.
+        Ils sont tous les deux en deuil. Et tous les deux ne le savent pas vraiment.
+      </p>
+    </div>
+
+    <blockquote class="pullquote">
+      Ce que Cendrillon découvrira, avant la fin,<br>
+      c'est ce que sa mère avait vraiment voulu lui dire.
+      <cite>Joël Pommerat — Cendrillon</cite>
+    </blockquote>
+
+    <div class="prose">
+      <p>
+        Le théâtre de Pommerat se reconnaît à son plateau presque noir, à ses
+        voix qui semblent venir de nulle part, à ses images qui surgissent
+        dans l'ombre. La troupe du LCS s'inscrit dans cette tradition :
+        peu d'effets, beaucoup de silence, une lumière qui choisit ce qu'elle
+        éclaire.
+      </p>
+    </div>
+
+    <div class="thematic">
+      <p class="thematic-label">Ce dont la pièce parle</p>
+      <div class="thematic-tags">
+        <span class="thematic-tag">le deuil</span>
+        <span class="thematic-tag">le mensonge</span>
+        <span class="thematic-tag">grandir</span>
+        <span class="thematic-tag">la mémoire</span>
+        <span class="thematic-tag">le temps qui passe</span>
+        <span class="thematic-tag">le pardon de soi</span>
+        <span class="thematic-tag">l'humour de la tristesse</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PERSONNAGES
+     ============================================================ -->
+<section class="panel" id="personnages" role="tabpanel" aria-labelledby="tab-personnages">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="section-num">II · DRAMATIS PERSONÆ</p>
+      <h2 class="section-title display">Les personnages</h2>
+      <div class="sec-divider"><span class="sec-divider-line"></span></div>
+      <p class="lede" style="margin-top:20px;max-width:52ch;">
+        Les figures d'un conte qui s'est retourné. Cliquez sur un personnage
+        pour en savoir plus.
+      </p>
+    </div>
+
+    <div class="chars" id="chars-grid"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TROUPE
+     ============================================================ -->
+<section class="panel" id="troupe" role="tabpanel" aria-labelledby="tab-troupe">
+  <div class="wrap-narrow">
+    <div class="sec-head">
+      <p class="section-num">III · LA DISTRIBUTION</p>
+      <h2 class="section-title display">La troupe</h2>
+      <div class="sec-divider"><span class="sec-divider-line"></span></div>
+      <p class="lede" style="margin-top:20px;max-width:48ch;">
+        Les comédiennes et comédiens du Lycée Condorcet de Sydney
+        qui portent cette <em>Cendrillon</em>.
+      </p>
+    </div>
+
+    <div class="troupe-list" id="troupe-list"></div>
+
+    <div class="troupe-note">
+      Le rôle de Sandra est partagé entre deux comédiennes. Un choix
+      de mise en scène fidèle à l'esprit de Pommerat, qui aime les doubles
+      et les glissements d'identité.
+    </div>
+
+    <div class="troupe-credit">
+      <h3>Mise en scène et encadrement</h3>
+      <p>Hélène Flurin</p>
+    </div>
+
+    <div class="troupe-credit">
+      <h3>Technique</h3>
+      <p>Jérémie Perrault &amp; Jérémie Desrosiers</p>
+    </div>
+
+    <div class="troupe-credit">
+      <h3>Remerciements</h3>
+      <p>
+        Au Lycée Condorcet de Sydney, aux familles, et à toutes celles
+        et ceux qui ont rendu cette représentation possible.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     INFOS
+     ============================================================ -->
+<section class="panel" id="infos" role="tabpanel" aria-labelledby="tab-infos">
+  <div class="wrap-narrow">
+    <div class="sec-head">
+      <p class="section-num">IV · INFORMATIONS PRATIQUES</p>
+      <h2 class="section-title display">Venir voir<br>la pièce</h2>
+      <div class="sec-divider"><span class="sec-divider-line"></span></div>
+    </div>
+
+    <div class="info-hero">
+      <p class="overline">Représentation unique</p>
+      <p class="info-date">Vendredi<br>15 mai 2026</p>
+      <p class="info-time">
+        <svg class="watch" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <circle class="watch-face" cx="32" cy="32" r="26" stroke-width="1.6"/>
+          <line class="watch-hand-h" x1="32" y1="32" x2="32" y2="20" stroke-width="2" stroke-linecap="round"/>
+          <line class="watch-hand-m" x1="32" y1="32" x2="44" y2="32" stroke-width="1.6" stroke-linecap="round"/>
+          <circle class="watch-pivot" cx="32" cy="32" r="2"/>
+        </svg>
+        19 heures précises
+      </p>
+    </div>
+
+    <div class="info-blocks">
+      <div class="info-block">
+        <p class="info-key">Lieu</p>
+        <p class="info-val">
+          <strong>Théâtre du LCS</strong><br>
+          Lycée Condorcet de Sydney<br>
+          <span style="color:var(--ink-dim);font-style:italic;font-size:0.9rem">Entrée par Moverly Road</span>
+        </p>
+      </div>
+
+      <div class="info-block">
+        <p class="info-key">Tarif</p>
+        <p class="info-val">
+          <span class="entree-libre">Entrée libre</span>
+        </p>
+      </div>
+
+      <div class="info-block">
+        <p class="info-key">Durée</p>
+        <p class="info-val">
+          Environ 1h10<br>
+          <span style="color:var(--ink-dim);font-style:italic;font-size:0.9rem">sans entracte</span>
+        </p>
+      </div>
+
+      <div class="info-block">
+        <p class="info-key">À partir de</p>
+        <p class="info-val">
+          10 ans<br>
+          <span style="color:var(--ink-dim);font-style:italic;font-size:0.9rem">
+            Voir l'avertissement dans l'onglet L'histoire.
+          </span>
+        </p>
+      </div>
+
+      <div class="info-block">
+        <p class="info-key">Ouverture des portes</p>
+        <p class="info-val">
+          À partir de 18h45
+        </p>
+      </div>
+
+      <div class="info-block">
+        <p class="info-key">Contact</p>
+        <p class="info-val">
+          Coordination extrascolaire LCS<br>
+          <a href="mailto:aes@condorcet.com.au" style="color:var(--accent);text-decoration:none">aes@condorcet.com.au</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================================================
+     MODAL (PERSONNAGE)
+     ============================================================ -->
+<div class="modal-backdrop" id="modal-backdrop" aria-hidden="true"></div>
+<aside class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-name" aria-hidden="true">
+  <div class="modal-inner">
+    <button class="modal-close" id="modal-close" aria-label="Fermer">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+        <line x1="3" y1="3" x2="11" y2="11" stroke-linecap="round"/>
+        <line x1="11" y1="3" x2="3" y2="11" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <p class="modal-num" id="modal-num"></p>
+    <h3 class="modal-name display" id="modal-name"></h3>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-props" id="modal-props" hidden>
+      <p class="modal-props-label">Costume & accessoires</p>
+      <p class="modal-props-text" id="modal-props-text"></p>
+    </div>
+    <div class="modal-actor" id="modal-actor"></div>
+  </div>
+</aside>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav class="nav" role="tablist" aria-label="Navigation principale">
+  <ul class="nav-list">
+    <li class="nav-item brand" aria-hidden="true">
+      <span class="brand-logo">Cendrillon <em>— troupe du LCS</em></span>
+    </li>
+    <li class="nav-item">
+      <button class="nav-btn active" id="tab-accueil" role="tab" aria-selected="true" aria-controls="accueil" data-target="accueil">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/>
+          <polyline points="12,7 12,12 15.5,14"/>
+        </svg>
+        <span>Accueil</span>
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-btn" id="tab-histoire" role="tab" aria-selected="false" aria-controls="histoire" data-target="histoire">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5z"/>
+          <line x1="12" y1="3" x2="12" y2="21"/>
+        </svg>
+        <span>L'histoire</span>
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-btn" id="tab-personnages" role="tab" aria-selected="false" aria-controls="personnages" data-target="personnages">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M8 3c-2.5 1-4 3.5-4 6.5 0 3 1.8 5.5 4 5.5s4-2.5 4-5.5c0-3-1.5-5.5-4-6.5z"/>
+          <path d="M16 9c-2.5 1-4 3.5-4 6.5 0 3 1.8 5.5 4 5.5s4-2.5 4-5.5c0-3-1.5-5.5-4-6.5z"/>
+        </svg>
+        <span>Personnages</span>
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-btn" id="tab-troupe" role="tab" aria-selected="false" aria-controls="troupe" data-target="troupe">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="9" cy="8" r="3"/>
+          <circle cx="17" cy="10" r="2.5"/>
+          <path d="M3 20c0-3 2.7-5 6-5s6 2 6 5"/>
+          <path d="M15 20c0-2 1.8-4 4-4s4 2 4 4" opacity="0.7"/>
+        </svg>
+        <span>La troupe</span>
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-btn" id="tab-infos" role="tab" aria-selected="false" aria-controls="infos" data-target="infos">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/>
+          <line x1="12" y1="11" x2="12" y2="17"/>
+          <circle cx="12" cy="7.5" r="0.6" fill="currentColor"/>
+        </svg>
+        <span>Infos</span>
+      </button>
+    </li>
+  </ul>
+</nav>
+
+<script>
+/* ============================================================
+   DATA — PERSONNAGES
+   ============================================================ */
+const CHARACTERS = [
+  {
+    id: 1,
+    name: "Sandra",
+    subtitle: "la très jeune fille · dite Cendrillon",
+    tagline: "Une enfant qui a mal entendu les derniers mots de sa mère — et qui s'est condamnée à ne jamais l'oublier.",
+    body: [
+      "Sandra est le personnage-titre. Une petite fille sérieuse, hantée, drôle malgré elle. Sur le lit de mort de sa mère, elle n'a pas compris exactement ce qu'on lui demandait de faire. Persuadée qu'il ne faut jamais, au grand jamais, laisser la pensée de sa mère s'éloigner, elle règle sa montre pour qu'elle sonne toutes les cinq minutes.",
+      "Ses demi-frères et demi-sœurs, pour se moquer d'elle, lui donnent le surnom de Cendrillon. Elle le garde. Comme tout le reste, d'ailleurs. Elle endure, elle encaisse, elle enregistre.",
+      "Elle ne se libèrera qu'à la fin, quand elle comprendra enfin ce que sa mère avait vraiment voulu lui dire."
+    ],
+    props: "Une grosse montre qui sonne, des chaussures à claquettes, une robe blanche, une robe noire.",
+    actor: "Maya Kaufling & Chloé Momot",
+    actorLabel: "Rôle partagé"
+  },
+  {
+    id: 2,
+    name: "Le Narrateur",
+    subtitle: "la voix qui raconte",
+    tagline: "Chez Pommerat, la voix qui ouvre le conte n'est jamais neutre. Elle sait des choses que les personnages ignorent.",
+    body: [
+      "Le Narrateur ouvre la pièce et la ferme. Il commente, il guide, il tient la main du public à travers l'histoire. Il est le seul à savoir, dès le début, comment tout cela finira.",
+      "Chez Pommerat, la voix qui raconte est presque un personnage à part entière — distante, tendre, parfois ironique."
+    ],
+    props: "Tenue libre ; la proposition de mise en scène est une classe, tout en noir.",
+    actor: "Baptiste Desrosiers"
+  },
+  {
+    id: 3,
+    name: "Le Père",
+    subtitle: "un homme qui ne sait plus quoi dire",
+    tagline: "Il a aimé sa femme, il aime sa fille, et il ne sait pas parler de l'une à l'autre.",
+    body: [
+      "Le Père est une figure touchante plus que coupable. Il se tait, il fume sa pipe, il garde dans une cassette quelques pièces et quelques souvenirs.",
+      "Quand sa nouvelle femme écrase sa fille, il laisse faire — moins par lâcheté peut-être que par épuisement. Le deuil l'a vidé. Il croit protéger Sandra en n'évoquant jamais la mère morte."
+    ],
+    props: "Une cassette contenant quelques pièces, une pipe.",
+    actor: "Chloé Roumanus"
+  },
+  {
+    id: 4,
+    name: "La Belle-Mère",
+    subtitle: "une femme qui ne vieillit pas — en apparence",
+    tagline: "Elle est obsédée par sa jeunesse. Ce qui la rend cruelle, c'est sa vanité.",
+    body: [
+      "La Belle-Mère ne supporte pas le passé. Ni le sien, ni celui des autres. L'existence même de Sandra, qui pleure une mère morte, lui rappelle une chose qu'elle refuse d'admettre : le temps passe.",
+      "Elle n'est pas méchante comme dans les contes — elle est méchante comme dans la vie. Par orgueil, par peur, par entêtement."
+    ],
+    props: "Une robe blanche, une perruque, une robe chic.",
+    actor: "Louis Gaulier Liu"
+  },
+  {
+    id: 5,
+    name: "La Fée",
+    subtitle: "la marraine qui n'en peut plus",
+    tagline: "Rien d'une bonne fée. Ici, une fée cabossée, à court de pouvoirs, qui fait ce qu'elle peut.",
+    body: [
+      "La Fée de Pommerat est à l'opposé de celle de Perrault. Elle a les ailes abîmées, elle fume, elle joue aux cartes, elle improvise.",
+      "C'est peut-être le personnage le plus drôle de la pièce — et, dans le même souffle, le plus mélancolique. Elle fait ce qu'elle peut, et ce qu'elle peut n'est pas grand-chose. Ce qui rend son aide, quand elle arrive, d'autant plus précieuse."
+    ],
+    props: "Une robe de fée bleue, une perruque bleue, des ailes cassées, un jeu de cartes, une cigarette.",
+    actor: "Leyton Guillot"
+  },
+  {
+    id: 6,
+    name: "Sœur Grande",
+    subtitle: "l'aînée, celle qui sait tout",
+    tagline: "Arrogante, bête, persuadée d'être exceptionnelle. Elle apporte le comique franc de la pièce.",
+    body: [
+      "Sœur Grande est l'aînée des deux enfants de la Belle-Mère. Elle est convaincue d'être supérieure à tout le monde, à commencer par son cadet, avec qui elle est en rivalité permanente.",
+      "En duo avec Frère Petit, elle forme un couple comique d'une cruauté enfantine — celle, universelle, des grands frères et des grandes sœurs qui écrasent les petits."
+    ],
+    props: "Une tenue contemporaine, une tenue de bal.",
+    actor: "Anne Gaulier Liu"
+  },
+  {
+    id: 7,
+    name: "Frère Petit",
+    subtitle: "le cadet, celui qui veut prouver",
+    tagline: "Aussi vaniteux que son aînée, en un peu plus bête encore. Ensemble, ils sont irrésistibles.",
+    body: [
+      "Pommerat avait écrit deux sœurs. La troupe du LCS a choisi d'en faire un frère et une sœur — même dynamique, même vanité, même rivalité absurde.",
+      "Frère Petit court après sa sœur, la singe, la dépasse, se ridiculise. Le comique tient à leur sérieux imperturbable : ils ne se rendent jamais compte de ce qu'ils sont."
+    ],
+    props: "Une tenue contemporaine, une tenue de bal.",
+    actor: "Emilien Leblanc"
+  },
+  {
+    id: 8,
+    name: "Le Roi",
+    subtitle: "un père qui a menti par amour",
+    tagline: "Il a raconté à son fils que sa mère était partie en voyage. Ça fait dix ans que ce voyage dure.",
+    body: [
+      "Le Roi est une figure maladroite, parfois ridicule, finalement très tendre. Il a menti à son fils pour le protéger, et il ne sait plus comment revenir en arrière. Dix années ont passé. Le mensonge a pris racine.",
+      "Quand il organise une grande fête au palais, c'est aussi une manière, peut-être, d'essayer de réparer quelque chose qu'il ne sait pas nommer."
+    ],
+    props: "Des peluches en laisse, une couronne.",
+    actor: "Joachim Smaller"
+  },
+  {
+    id: 9,
+    name: "Le Très Jeune Prince",
+    subtitle: "un enfant qui attend",
+    tagline: "Il attend le retour de sa mère depuis dix ans. Il ne le sait pas, mais elle ne reviendra pas.",
+    body: [
+      "Le Très Jeune Prince passe ses journées en pyjama, absorbé par sa console. Il attend, sans savoir vraiment ce qu'il attend. Son père lui a dit que sa mère reviendrait. Il l'a cru.",
+      "Quand il rencontrera Sandra, il rencontrera quelqu'un qui porte le même mensonge que lui — et la rencontre de leurs deux silences permettra, peut-être, d'en sortir."
+    ],
+    props: "Un pyjama Pikachu, une console.",
+    actor: "Gaspard Marin Pinier"
+  },
+  {
+    id: 10,
+    name: "La Mère / Le Garde",
+    subtitle: "la voix d'avant, le regard de toujours",
+    tagline: "Deux rôles, une même présence : ce qui veille, ce qui manque.",
+    body: [
+      "La Mère apparaît en souvenir, en voix, en rêve. Ce sont ses mots — mal compris sur un lit de mort — qui enclenchent toute l'histoire. Elle ne revient pas dans la réalité ; elle revient dans la tête de sa fille.",
+      "Le Garde, à l'autre bout du conte, veille. Figure silencieuse, marginale, mais nécessaire."
+    ],
+    props: "Tenue de garde, robe de nuit pour la Mère de Cendrillon.",
+    actor: "Mohammed Abdelrahman"
+  }
+];
+
+/* ============================================================
+   DATA — TROUPE (ordonnée par apparition du rôle)
+   ============================================================ */
+const TROUPE = [
+  { name: "Maya Kaufling",        role: "Sandra / Cendrillon",  note: "Rôle partagé" },
+  { name: "Chloé Momot",          role: "Sandra / Cendrillon",  note: "Rôle partagé" },
+  { name: "Baptiste Desrosiers",  role: "Le Narrateur" },
+  { name: "Chloé Roumanus",       role: "Le Père" },
+  { name: "Louis Gaulier Liu",    role: "La Belle-Mère" },
+  { name: "Leyton Guillot",       role: "La Fée" },
+  { name: "Anne Gaulier Liu",     role: "Sœur Grande" },
+  { name: "Emilien Leblanc",      role: "Frère Petit" },
+  { name: "Joachim Smaller",      role: "Le Roi" },
+  { name: "Gaspard Marin Pinier", role: "Le Très Jeune Prince" },
+  { name: "Mohammed Abdelrahman", role: "La Mère / Le Garde",   note: "Double rôle" }
+];
+
+/* ============================================================
+   RENDER — PERSONNAGES
+   ============================================================ */
+function romanize(n) {
+  const map = [[10,"X"],[9,"IX"],[5,"V"],[4,"IV"],[1,"I"]];
+  let out = "";
+  for (const [v, s] of map) { while (n >= v) { out += s; n -= v; } }
+  return out;
+}
+
+const charsGrid = document.getElementById('chars-grid');
+CHARACTERS.forEach((c, i) => {
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'char-card';
+  btn.setAttribute('aria-label', `${c.name} — en savoir plus`);
+  btn.innerHTML = `
+    <p class="char-num">${romanize(i + 1)}</p>
+    <h3 class="char-name">${c.name}<em>${c.subtitle}</em></h3>
+    <p class="char-tagline">${c.tagline}</p>
+    <div class="char-meta">
+      <span class="char-actor">${c.actor}</span>
+      <span class="char-more">
+        Lire
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.4">
+          <path d="M2 5h6M6 2l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </div>
+  `;
+  btn.addEventListener('click', () => openModal(c, i + 1));
+  charsGrid.appendChild(btn);
+});
+
+/* ============================================================
+   RENDER — TROUPE
+   ============================================================ */
+const troupeList = document.getElementById('troupe-list');
+TROUPE.forEach(t => {
+  const row = document.createElement('div');
+  row.className = 'troupe-row';
+  row.innerHTML = `
+    <div class="troupe-name">${t.name}</div>
+    <div class="troupe-role">${t.role}${t.note ? `<em>${t.note}</em>` : ''}</div>
+  `;
+  troupeList.appendChild(row);
+});
+
+/* ============================================================
+   MODAL LOGIC
+   ============================================================ */
+const modal       = document.getElementById('modal');
+const backdrop    = document.getElementById('modal-backdrop');
+const modalClose  = document.getElementById('modal-close');
+const modalNum    = document.getElementById('modal-num');
+const modalName   = document.getElementById('modal-name');
+const modalBody   = document.getElementById('modal-body');
+const modalProps  = document.getElementById('modal-props');
+const modalPropsT = document.getElementById('modal-props-text');
+const modalActor  = document.getElementById('modal-actor');
+
+function openModal(c, index) {
+  modalNum.textContent = romanize(index) + " · PERSONNAGE";
+  modalName.innerHTML  = `${c.name}<em>${c.subtitle}</em>`;
+  modalBody.innerHTML  = c.body.map(p => `<p>${p}</p>`).join('');
+  if (c.props) {
+    modalProps.hidden = false;
+    modalPropsT.textContent = c.props;
+  } else {
+    modalProps.hidden = true;
+  }
+  modalActor.innerHTML = `
+    ${c.actorLabel || 'Interprété par'}
+    <span class="modal-actor-name">${c.actor}</span>
+  `;
+
+  modal.classList.add('open');
+  backdrop.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  // focus management
+  setTimeout(() => modalClose.focus(), 300);
+}
+
+function closeModal() {
+  modal.classList.remove('open');
+  backdrop.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+backdrop.addEventListener('click', closeModal);
+modalClose.addEventListener('click', closeModal);
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+});
+
+/* ============================================================
+   TABS LOGIC
+   ============================================================ */
+const tabs   = document.querySelectorAll('.nav-btn');
+const panels = document.querySelectorAll('.panel');
+const VALID  = ['accueil','histoire','personnages','troupe','infos'];
+
+function switchTo(target, updateHash = true) {
+  if (!VALID.includes(target)) target = 'accueil';
+  tabs.forEach(t => {
+    const active = t.dataset.target === target;
+    t.classList.toggle('active', active);
+    t.setAttribute('aria-selected', active ? 'true' : 'false');
+  });
+  panels.forEach(p => p.classList.toggle('active', p.id === target));
+  if (updateHash) {
+    history.replaceState(null, '', '#' + target);
+  }
+  // scroll to top of panel
+  window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+}
+
+tabs.forEach(t => t.addEventListener('click', () => switchTo(t.dataset.target)));
+
+// Inline links (e.g. hero CTA)
+document.querySelectorAll('[data-goto]').forEach(el => {
+  el.addEventListener('click', (e) => {
+    e.preventDefault();
+    switchTo(el.dataset.goto);
+  });
+});
+
+// Initial hash
+const initial = (location.hash || '').replace('#', '');
+if (initial && VALID.includes(initial)) {
+  switchTo(initial, false);
+}
+
+// Listen for back/forward
+window.addEventListener('hashchange', () => {
+  const h = (location.hash || '').replace('#', '');
+  if (VALID.includes(h)) switchTo(h, false);
+});
+</script>
+
+</body>
+</html>
